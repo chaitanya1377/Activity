@@ -1,64 +1,56 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
-    char str[20],strCpy[20],strCat[40],str2[20];
-    printf("Enter the string: ");
-    scanf("%19s", &str);
-    int option,i = 0,j=0;
-    while (1)
-    {
-        printf("Enter the option:\n1. Find the length of the string\n2. Copy the string\n3. Concatenate another string\n4. exit\n");
-        scanf("%d",&option);  
-        switch (option)
-        {
-            case 1:
-                while (str[i] != '\0') 
-                    {
-                        i++;
-                    }
-                    printf("The length = %d\n",i);
-                    i=0;
-                break;
-            case 2:
-                    while (str[i] != '\0') 
-                    {
-                        strCpy[i] = str[i];
-                        i++;
-                    }
-                    strCpy[i]='\0';
-                    printf("The copied string is: %s\n", strCpy);
-                    i = 0;
-                break;
-            case 3:
-                    printf("Enter the string to concatenate: ");
-                    scanf("%19s",&str2);
-                    j=0;
-                    i=0;
-                    while (str[i] != '\0')
-                    {
-                        strCat[i]=str[i];
-                        i++;
-                    }
-                    while (str2[j]!='\0')
-                    {
-                        strCat[i]=str2[j];
-                        i++;
-                        j++;
-                    }
-                    strCat[i]='\0';
-                    printf("The concatenated string is: %s\n",strCat);
-                    i=0;
-                    j=0;
-                    break;
-            case 4:
-                    exit(0);
-            default:
-                printf("Error!");
-        }
+    char name[20], password[20], username[25];
+    int count = 0, a = 0, randomNumber[4];
 
-        
+    randomNumber[4] = '\0';
+    srand(time(NULL));
+    char randomStr[5];
+    for (int i = 0; i < 4; i++)
+    {
+        int digit = rand() % 10;
+        randomNumber[i] = '0' + digit;
     }
+
+    printf("Enter the first name: ");
+    scanf("%19s", &name);
+    printf("Enter the password: ");
+    scanf("%19s", &password);
+
+    while (password[count] != '\0')
+    {
+        count++;
+    }
+    if (count < 8)
+    {
+        printf("Please enter at least 8 characters\nTry again to Sign Up");
+    }
+    else
+    {
+        printf("Welcome %s\n", name);
+
+        count = 0;
+
+        while (name[count] != '\0')
+        {
+            username[count] = name[count];
+            count++;
+        }
+        while (a < 4)
+        {
+            username[count] = randomNumber[a];
+            a++;
+            count++;
+        }
+        username[count] = '\0';
+
+        printf("Your Username is: %s\n", username);
+    }
+    count = 0;
+    a = 0;
     return 0;
 }
