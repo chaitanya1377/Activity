@@ -1,61 +1,67 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 int main()
 {
     FILE *fptr;
-    int option,num,numInFile,newNum;
+    int option, marks;
+    char name[20];
+
 
     while (1)
     {
-        printf("Enter Your option:\n1. Store a number\n2. Read the file\n3. Print the file elemets\n4. Change and print the number\n5. Add new number at the end\n6. Exit\n");
-        scanf("%d",&option);
+        printf("\nEnter Your option:\n");
+        printf("1. Add a student's name and marks in file\n");
+        printf("2. Read the file\n");
+        printf("3. Print if the student is passed or not (more than 35 marks)\n");
+        printf("4. Exit\n");
+       
+        scanf("%d", &option);
+
 
         switch (option)
         {
         case 1:
-            fptr=fopen("number.txt","w");
-            printf("Enter the number to be stored:");
-            scanf("%d",&num);
-            fprintf(fptr,"%d",num);
+            fptr = fopen("number.txt", "w");
+            printf("Enter the name of the student: ");
+            scanf("%s", name);
+            printf("Enter the marks (out of 100) of the student: ");
+            scanf("%d", &marks);
+            fprintf(fptr, "%s %d", name, marks);
+            fclose(fptr);
+            printf("Data written successfully.\n");
+            break;
+
+
+        case 2:
+            fptr = fopen("number.txt", "r");
+            fscanf(fptr, "%s %d", name, &marks);
+            printf("Student: %s, Marks: %d\n", name, marks);
             fclose(fptr);
             break;
-            
-        case 2:
-            fptr=fopen("number.txt","r");
-            printf("Read the file successfully\n");
-            break;
+
 
         case 3:
-            fptr=fopen("number.txt","r");
-            fscanf(fptr,"%d",&numInFile);
-            printf("The number stored in the file is %d\n",numInFile);
-            fclose(fptr);
-            break;
-            
-            case 4:
-            fptr=fopen("number.txt","w");
-            printf("Enter the number to be stored:");
-            scanf("%d",&newNum);
-            fprintf(fptr,"%d",newNum);
-            fclose(fptr);
-            break;
-            
-            case 5:
-            fptr=fopen("number.txt","a+");
-            printf("Enter the number to be stored:");
-            scanf("%d",&newNum);
-            fprintf(fptr,"%d",newNum);
+            fptr = fopen("number.txt", "r");
+            fscanf(fptr, "%s %d", name, &marks);
+            if (marks < 35)
+                printf("Student %s has failed with %d marks.\n", name, marks);
+            else
+                printf("Student %s has passed with %d marks.\n", name, marks);
             fclose(fptr);
             break;
 
-        case 6:
+
+        case 4:
             exit(0);
 
+
         default:
-            printf("Error");
+            printf("Invalid option.\n");
         }
     }
-        
+
+
     return 0;
 }
